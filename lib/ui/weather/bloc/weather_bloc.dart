@@ -27,18 +27,24 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     WeatherEvent event,
     WeatherState state,
   ) async* {
-    yield state.copyWith(isLoading: true);
+    yield state.copyWith(
+      isLoading: true,
+      hasError: false,
+    );
 
     try {
       final weather = await _weatherRepository.getWeather();
 
       yield state.copyWith(
         isLoading: false,
+        hasError: false,
         weather: weather,
       );
     } catch (_) {
-      // TODO: Add error state
-      yield state.copyWith(isLoading: false);
+      yield state.copyWith(
+        isLoading: false,
+        hasError: true,
+      );
     }
   }
 }
