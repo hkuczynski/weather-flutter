@@ -13,6 +13,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:weather/app/app.dart';
 import 'package:weather/app/app_bloc_observer.dart';
+import 'package:weather/app/dependency_provider.dart';
 
 void main() {
   Bloc.observer = AppBlocObserver();
@@ -21,7 +22,8 @@ void main() {
   };
 
   runZonedGuarded(
-    () => runApp(const App()),
+    // TODO: Replace TestDependencyProvider with the proper one
+    () => runApp(const TestDependencyProvider(child: App())),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
