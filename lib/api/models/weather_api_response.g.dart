@@ -19,7 +19,7 @@ WeatherApiResponse _$WeatherApiResponseFromJson(Map<String, dynamic> json) {
     sys: Sys.fromJson(json['sys'] as Map<String, dynamic>),
     base: json['base'] as String,
     main: Main.fromJson(json['main'] as Map<String, dynamic>),
-    dt: DateTime.parse(json['dt'] as String),
+    dt: convertDateTimeFromMillisecondsSinceEpoch(json['dt'] as int),
   );
 }
 
@@ -34,7 +34,7 @@ Map<String, dynamic> _$WeatherApiResponseToJson(WeatherApiResponse instance) =>
       'sys': instance.sys,
       'base': instance.base,
       'main': instance.main,
-      'dt': instance.dt.toIso8601String(),
+      'dt': convertDateTimeToMillisecondsSinceEpoch(instance.dt),
     };
 
 Clouds _$CloudsFromJson(Map<String, dynamic> json) {
@@ -88,16 +88,16 @@ Map<String, dynamic> _$WeatherToJson(Weather instance) => <String, dynamic>{
 
 Sys _$SysFromJson(Map<String, dynamic> json) {
   return Sys(
-    countryCode: json['countryCode'] as String,
-    sunrise: DateTime.parse(json['sunrise'] as String),
-    sunset: DateTime.parse(json['sunset'] as String),
+    countryCode: json['country'] as String,
+    sunrise: convertDateTimeFromMillisecondsSinceEpoch(json['sunrise'] as int),
+    sunset: convertDateTimeFromMillisecondsSinceEpoch(json['sunset'] as int),
   );
 }
 
 Map<String, dynamic> _$SysToJson(Sys instance) => <String, dynamic>{
-      'countryCode': instance.countryCode,
-      'sunrise': instance.sunrise.toIso8601String(),
-      'sunset': instance.sunset.toIso8601String(),
+      'country': instance.countryCode,
+      'sunrise': convertDateTimeToMillisecondsSinceEpoch(instance.sunrise),
+      'sunset': convertDateTimeToMillisecondsSinceEpoch(instance.sunset),
     };
 
 Main _$MainFromJson(Map<String, dynamic> json) {

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:weather/api/utils/date_time_utils.dart';
 import 'package:weather/data/models/weather.dart' as weather_model;
 
 part 'weather_api_response.g.dart';
@@ -30,6 +31,10 @@ class WeatherApiResponse {
   final Sys sys;
   final String base;
   final Main main;
+  @JsonKey(
+    fromJson: convertDateTimeFromMillisecondsSinceEpoch,
+    toJson: convertDateTimeToMillisecondsSinceEpoch,
+  )
   final DateTime dt;
 
   Map<String, dynamic> toJson() => _$WeatherApiResponseToJson(this);
@@ -113,8 +118,17 @@ class Sys {
 
   factory Sys.fromJson(Map<String, dynamic> json) => _$SysFromJson(json);
 
+  @JsonKey(name: 'country')
   final String countryCode;
+  @JsonKey(
+    fromJson: convertDateTimeFromMillisecondsSinceEpoch,
+    toJson: convertDateTimeToMillisecondsSinceEpoch,
+  )
   final DateTime sunrise;
+  @JsonKey(
+    fromJson: convertDateTimeFromMillisecondsSinceEpoch,
+    toJson: convertDateTimeToMillisecondsSinceEpoch,
+  )
   final DateTime sunset;
 
   Map<String, dynamic> toJson() => _$SysToJson(this);
