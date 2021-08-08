@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:weather/api/utils/date_time_utils.dart';
+import 'package:weather/data/models/city.dart';
+import 'package:weather/data/models/coordinates.dart';
 import 'package:weather/data/models/weather.dart' as weather_model;
 
 part 'weather_api_response.g.dart';
@@ -12,25 +14,27 @@ class WeatherApiResponse {
     required this.wind,
     required this.coordinates,
     required this.visibility,
-    required this.weather,
+    required this.description,
     required this.sys,
     required this.base,
     required this.main,
     required this.dt,
   });
 
-  factory WeatherApiResponse.fromJson(Map<String, dynamic> json) => _$WeatherApiResponseFromJson(json);
+  factory WeatherApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$WeatherApiResponseFromJson(json);
 
   final String name;
-  final Clouds clouds;
-  final Wind wind;
+  final CloudsApiResponse clouds;
+  final WindApiResponse wind;
   @JsonKey(name: 'coord')
-  final Coordinates coordinates;
+  final CoordinatesApiResponse coordinates;
   final num visibility;
-  final List<Weather> weather;
-  final Sys sys;
+  @JsonKey(name: 'weather')
+  final List<DescriptionApiResponse> description;
+  final SysApiResponse sys;
   final String base;
-  final Main main;
+  final MainApiResponse main;
   @JsonKey(
     fromJson: convertDateTimeFromMillisecondsSinceEpoch,
     toJson: convertDateTimeToMillisecondsSinceEpoch,
@@ -42,81 +46,116 @@ class WeatherApiResponse {
 
 extension WeatherApiResponseX on WeatherApiResponse {
   weather_model.Weather toDomain() {
-    return weather_model.Weather();
+    return weather_model.Weather(
+      temp: main.temp,
+      tempMax: main.tempMax,
+      tempMin: main.tempMin,
+      pressure: main.pressure,
+      humidity: main.humidity,
+      state: description.isNotEmpty ? description.first.main : null,
+      city: City(
+        name: name,
+        coordinates: Coordinates(
+          lat: coordinates.lat.toDouble(),
+          lon: coordinates.lon.toDouble(),
+        ),
+      ),
+    );
   }
 }
 
 @JsonSerializable()
-class Clouds {
-  const Clouds({
+class CloudsApiResponse {
+  const CloudsApiResponse({
     required this.cloudinessPercent,
   });
 
-  factory Clouds.fromJson(Map<String, dynamic> json) => _$CloudsFromJson(json);
+  factory CloudsApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$CloudsApiResponseFromJson(json);
 
   @JsonKey(name: 'all')
   final num cloudinessPercent;
 
-  Map<String, dynamic> toJson() => _$CloudsToJson(this);
+  Map<String, dynamic> toJson() => _$CloudsApiResponseToJson(this);
 }
 
 @JsonSerializable()
-class Wind {
-  const Wind({
+class WindApiResponse {
+  const WindApiResponse({
     required this.direction,
     required this.speed,
   });
 
-  factory Wind.fromJson(Map<String, dynamic> json) => _$WindFromJson(json);
+  factory WindApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$WindApiResponseFromJson(json);
 
   @JsonKey(name: 'deg')
   final num direction;
   final num speed;
 
-  Map<String, dynamic> toJson() => _$WindToJson(this);
+  Map<String, dynamic> toJson() => _$WindApiResponseToJson(this);
 }
 
 @JsonSerializable()
-class Coordinates {
-  const Coordinates({
+class CoordinatesApiResponse {
+  const CoordinatesApiResponse({
     required this.lat,
     required this.lon,
   });
 
-  factory Coordinates.fromJson(Map<String, dynamic> json) => _$CoordinatesFromJson(json);
+  factory CoordinatesApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$CoordinatesApiResponseFromJson(json);
 
   final num lat;
   final num lon;
 
-  Map<String, dynamic> toJson() => _$CoordinatesToJson(this);
+  Map<String, dynamic> toJson() => _$CoordinatesApiResponseToJson(this);
+}
+
+enum WeatherDescriptionState {
+  @JsonValue('Thunderstorm')
+  thunderstorm,
+  @JsonValue('Drizzle')
+  drizzle,
+  @JsonValue('Rain')
+  rain,
+  @JsonValue('Snow')
+  snow,
+  @JsonValue('Clear')
+  clear,
+  @JsonValue('Clouds')
+  clouds,
 }
 
 @JsonSerializable()
-class Weather {
-  const Weather({
+class DescriptionApiResponse {
+  const DescriptionApiResponse({
     required this.icon,
     required this.description,
     required this.main,
   });
 
-  factory Weather.fromJson(Map<String, dynamic> json) => _$WeatherFromJson(json);
+  factory DescriptionApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$DescriptionApiResponseFromJson(json);
 
   final String icon;
   final String description;
-  final String main;
+  @JsonKey(unknownEnumValue: WeatherDescriptionState.clouds)
+  final WeatherDescriptionState main;
 
-  Map<String, dynamic> toJson() => _$WeatherToJson(this);
+  Map<String, dynamic> toJson() => _$DescriptionApiResponseToJson(this);
 }
 
 @JsonSerializable()
-class Sys {
-  const Sys({
+class SysApiResponse {
+  const SysApiResponse({
     required this.countryCode,
     required this.sunrise,
     required this.sunset,
   });
 
-  factory Sys.fromJson(Map<String, dynamic> json) => _$SysFromJson(json);
+  factory SysApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$SysApiResponseFromJson(json);
 
   @JsonKey(name: 'country')
   final String countryCode;
@@ -131,12 +170,12 @@ class Sys {
   )
   final DateTime sunset;
 
-  Map<String, dynamic> toJson() => _$SysToJson(this);
+  Map<String, dynamic> toJson() => _$SysApiResponseToJson(this);
 }
 
 @JsonSerializable()
-class Main {
-  const Main({
+class MainApiResponse {
+  const MainApiResponse({
     required this.humidity,
     required this.temp,
     required this.tempMax,
@@ -144,7 +183,8 @@ class Main {
     required this.pressure,
   });
 
-  factory Main.fromJson(Map<String, dynamic> json) => _$MainFromJson(json);
+  factory MainApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$MainApiResponseFromJson(json);
 
   final num humidity;
   final num temp;
@@ -154,5 +194,5 @@ class Main {
   final num tempMin;
   final num pressure;
 
-  Map<String, dynamic> toJson() => _$MainToJson(this);
+  Map<String, dynamic> toJson() => _$MainApiResponseToJson(this);
 }

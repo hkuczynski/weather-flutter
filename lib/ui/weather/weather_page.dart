@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/data/models/weather.dart';
 import 'package:weather/data/repositories/weather_repository.dart';
 import 'package:weather/ui/weather/bloc/weather_bloc.dart';
+import 'package:weather/ui/weather/widgets/forecasts.dart';
+import 'package:weather/ui/weather/widgets/todays_weather.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({Key? key}) : super(key: key);
@@ -33,10 +35,10 @@ class WeatherView extends StatelessWidget {
           final weather = state.weather;
 
           if (state.hasError || weather == null) {
-            return const _ErrorState();
+            return const _ErrorView();
           }
 
-          return _WeatherLoaded(weather: weather);
+          return _WeatherLoadedView(weather: weather);
         },
       ),
     );
@@ -54,8 +56,8 @@ class _LoadingView extends StatelessWidget {
   }
 }
 
-class _ErrorState extends StatelessWidget {
-  const _ErrorState({Key? key}) : super(key: key);
+class _ErrorView extends StatelessWidget {
+  const _ErrorView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +67,8 @@ class _ErrorState extends StatelessWidget {
   }
 }
 
-class _WeatherLoaded extends StatelessWidget {
-  const _WeatherLoaded({
+class _WeatherLoadedView extends StatelessWidget {
+  const _WeatherLoadedView({
     Key? key,
     required this.weather,
   }) : super(key: key);
@@ -75,8 +77,12 @@ class _WeatherLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Weather has been loaded! ☀️'),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TodaysWeather(weather: weather),
+        const Expanded(child: Forecasts())
+      ],
     );
   }
 }
