@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/api/api_service.dart';
-import 'package:weather/api/fake_api_service.dart';
+import 'package:weather/app/credentials.dart';
+import 'package:weather/data/repositories/places_repository.dart';
 import 'package:weather/data/repositories/weather_repository.dart';
+import 'package:weather/services/google_maps/fake_google_maps_api_service.dart';
+import 'package:weather/services/google_maps/google_maps_api_service.dart';
+import 'package:weather/services/weather_api/fake_weather_api_service.dart';
+import 'package:weather/services/weather_api/weather_api_service.dart';
 
 class TestDependencyProvider extends StatelessWidget {
   const TestDependencyProvider({
@@ -14,10 +18,15 @@ class TestDependencyProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final apiService = FakeApiService();
-    final weatherRepository = WeatherRepository(apiService: apiService);
+    final placesRepository = PlacesRepository(
+      apiService: FakeGoogleMapsApiService(),
+    );
+    final weatherRepository = WeatherRepository(
+      apiService: FakeWeatherApiService(),
+    );
 
     return DependencyProvider(
+      placesRepository: placesRepository,
       weatherRepository: weatherRepository,
       child: child,
     );
@@ -34,10 +43,15 @@ class DevelopmentDependencyProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final apiService = ApiService();
-    final weatherRepository = WeatherRepository(apiService: apiService);
+    const placesRepository = PlacesRepository(
+      apiService: GoogleMapsApiService(apiKey: kGoogleAPIKey),
+    );
+    final weatherRepository = WeatherRepository(
+      apiService: WeatherApiService(),
+    );
 
     return DependencyProvider(
+      placesRepository: placesRepository,
       weatherRepository: weatherRepository,
       child: child,
     );
@@ -47,10 +61,12 @@ class DevelopmentDependencyProvider extends StatelessWidget {
 class DependencyProvider extends StatelessWidget {
   const DependencyProvider({
     Key? key,
+    required this.placesRepository,
     required this.weatherRepository,
     required this.child,
   }) : super(key: key);
 
+  final PlacesRepository placesRepository;
   final WeatherRepository weatherRepository;
   final Widget child;
 
@@ -58,6 +74,7 @@ class DependencyProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider.value(value: placesRepository),
         RepositoryProvider.value(value: weatherRepository),
       ],
       child: child,

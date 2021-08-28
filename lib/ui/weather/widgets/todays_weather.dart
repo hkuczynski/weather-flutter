@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather/api/models/weather_api_response.dart';
+import 'package:weather/services/weather_api/models/weather_api_response.dart';
 import 'package:weather/data/models/weather.dart';
 import 'package:weather/ui/constants.dart';
 

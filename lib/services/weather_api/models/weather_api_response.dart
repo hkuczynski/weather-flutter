@@ -1,8 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:weather/api/utils/date_time_utils.dart';
 import 'package:weather/data/models/city.dart';
 import 'package:weather/data/models/coordinates.dart';
 import 'package:weather/data/models/weather.dart' as weather_model;
+
+import '../utils/date_time_utils.dart';
 
 part 'weather_api_response.g.dart';
 

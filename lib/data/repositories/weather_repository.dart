@@ -1,13 +1,14 @@
-import 'package:weather/api/api_service.dart';
-import 'package:weather/api/models/weather_api_response.dart' show WeatherApiResponseX;
 import 'package:weather/data/models/weather.dart';
+import 'package:weather/services/weather_api/weather_api_service.dart';
+import 'package:weather/services/weather_api/models/weather_api_response.dart'
+    show WeatherApiResponseX;
 
 class WeatherRepository {
   const WeatherRepository({
-    required ApiService apiService,
+    required WeatherApiService apiService,
   }) : _apiService = apiService;
 
-  final ApiService _apiService;
+  final WeatherApiService _apiService;
 
   Future<Weather> getWeather() async {
     final response = await _apiService.getWeather();

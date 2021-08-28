@@ -1,6 +1,6 @@
-import 'package:weather/api/models/weather_api_response.dart';
+import 'models/weather_api_response.dart';
 
-class ApiService {
+class WeatherApiService {
   Future<WeatherApiResponse> getWeather() {
     throw UnimplementedError();
   }

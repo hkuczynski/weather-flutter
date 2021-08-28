@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:weather/api/api_service.dart';
-import 'package:weather/api/models/weather_api_response.dart';
-import 'package:weather/api/stubs/weather_api_response_json.dart';
+import 'models/weather_api_response.dart';
+import 'stubs/weather_api_response_json.dart';
+import 'weather_api_service.dart';
 
-class FakeApiService implements ApiService {
+class FakeWeatherApiService implements WeatherApiService {
   @override
   Future<WeatherApiResponse> getWeather() {
     final json = jsonDecode(weatherApiResponseJson);

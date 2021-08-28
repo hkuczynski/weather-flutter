@@ -1,5 +1,5 @@
-import 'package:weather/api/models/weather_api_response.dart';
 import 'package:weather/data/models/city.dart';
+import 'package:weather/services/weather_api/models/weather_api_response.dart';
 
 class Weather {
   const Weather({
