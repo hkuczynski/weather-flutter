@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather/data/models/address_suggestion.dart';
+import 'package:weather/ui/address_selection/bloc/address_selection_bloc.dart';
 
 class AddressSelectionView extends StatefulWidget {
   const AddressSelectionView({Key? key}) : super(key: key);
@@ -27,7 +30,10 @@ class _AddressSelectionViewState extends State<AddressSelectionView> {
             onTap: () {
               showSearch(
                 context: context,
-                delegate: AddressSearchDelegate(),
+                delegate: AddressSearchDelegate(
+                  addressSelectionBloc:
+                      BlocProvider.of<AddressSelectionBloc>(context),
+                ),
               );
             },
           ),
@@ -38,6 +44,10 @@ class _AddressSelectionViewState extends State<AddressSelectionView> {
 }
 
 class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
+  AddressSearchDelegate({required this.addressSelectionBloc});
+
+  final Bloc<AddressSelectionEvent, AddressSelectionState> addressSelectionBloc;
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -62,13 +72,69 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return const Text("Results");
+    final event = SearchTextChanged(text: query);
+    addressSelectionBloc.add(event);
+
+    return BlocBuilder(
+      bloc: addressSelectionBloc,
+      builder: (BuildContext context, AddressSelectionState state) {
+        if (state.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state.hasError) {
+          return Text('Error loading suggestions');
+        }
+
+        return ListView.builder(
+          itemCount: state.suggestions.addressSuggestions.length,
+          itemBuilder: (context, index) {
+            final suggestion = state.suggestions.addressSuggestions[index];
+
+            return ListTile(
+              title: Text(suggestion.description),
+              onTap: () {
+                close(context, suggestion);
+              },
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return const Text("Suggestions");
+    final event = SearchTextChanged(text: query);
+    addressSelectionBloc.add(event);
+
+    return BlocBuilder(
+      bloc: addressSelectionBloc,
+      builder: (BuildContext context, AddressSelectionState state) {
+        if (state.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state.hasError) {
+          return Text('Error loading suggestions');
+        }
+
+        return ListView.builder(
+          itemCount: state.suggestions.addressSuggestions.length,
+          itemBuilder: (context, index) {
+            final suggestion = state.suggestions.addressSuggestions[index];
+
+            return ListTile(
+              title: Text(suggestion.description),
+              onTap: () {
+                close(context, suggestion);
+              },
+            );
+          },
+        );
+      },
+    );
   }
 }
-
-class AddressSuggestion {}

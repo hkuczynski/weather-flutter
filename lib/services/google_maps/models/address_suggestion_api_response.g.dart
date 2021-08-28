@@ -9,7 +9,7 @@ part of 'address_suggestion_api_response.dart';
 AddressSuggestionApiResponse _$AddressSuggestionApiResponseFromJson(
     Map<String, dynamic> json) {
   return AddressSuggestionApiResponse(
-    placeId: json['placeId'] as String,
+    placeId: json['place_id'] as String,
     description: json['description'] as String,
   );
 }
@@ -17,6 +17,6 @@ AddressSuggestionApiResponse _$AddressSuggestionApiResponseFromJson(
 Map<String, dynamic> _$AddressSuggestionApiResponseToJson(
         AddressSuggestionApiResponse instance) =>
     <String, dynamic>{
-      'placeId': instance.placeId,
+      'place_id': instance.placeId,
       'description': instance.description,
     };

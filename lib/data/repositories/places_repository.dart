@@ -1,6 +1,6 @@
-import 'package:weather/data/models/address_suggestion.dart';
+import 'package:weather/data/models/address_suggestions.dart';
 import 'package:weather/services/google_maps/google_maps_api_service.dart';
-import 'package:weather/services/google_maps/models/address_suggestion_api_response.dart';
+import 'package:weather/services/google_maps/models/address_suggestions_api_response.dart';
 
 class PlacesRepository {
   const PlacesRepository({
@@ -9,7 +9,7 @@ class PlacesRepository {
 
   final GoogleMapsApiService _apiService;
 
-  Future<AddressSuggestion> getAddressSuggestions({
+  Future<AddressSuggestions> getAddressSuggestions({
     required String query,
   }) async {
     final response = await _apiService.getAddressSuggestions(query: query);

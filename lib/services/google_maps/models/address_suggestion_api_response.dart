@@ -13,6 +13,7 @@ class AddressSuggestionApiResponse {
   factory AddressSuggestionApiResponse.fromJson(Map<String, dynamic> json) =>
       _$AddressSuggestionApiResponseFromJson(json);
 
+  @JsonKey(name: 'place_id')
   final String placeId;
   final String description;
 

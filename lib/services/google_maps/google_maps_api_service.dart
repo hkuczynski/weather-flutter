@@ -1,4 +1,4 @@
-import 'models/address_suggestion_api_response.dart';
+import 'models/address_suggestions_api_response.dart';
 
 class GoogleMapsApiService {
   const GoogleMapsApiService({
@@ -7,7 +7,7 @@ class GoogleMapsApiService {
 
   final String _apiKey;
 
-  Future<AddressSuggestionApiResponse> getAddressSuggestions({
+  Future<AddressSuggestionsApiResponse> getAddressSuggestions({
     required String query,
   }) {
     throw UnimplementedError();
