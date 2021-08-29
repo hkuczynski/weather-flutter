@@ -87,7 +87,7 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
           );
         }
         if (state.hasError) {
-          return Text('Error loading suggestions');
+          return const Text('Error loading suggestions');
         }
 
         return ListView.builder(
@@ -125,7 +125,7 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
           );
         }
         if (state.hasError) {
-          return Text('Error loading suggestions');
+          return const Text('Error loading suggestions');
         }
 
         return ListView.builder(

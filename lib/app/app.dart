@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:weather/l10n/l10n.dart';
-import 'package:weather/ui/address_selection/address_selection_page.dart';
 import 'package:weather/ui/weather/weather_page.dart';
 
 class App extends StatelessWidget {
@@ -26,7 +25,6 @@ class App extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      // home: const AddressSelectionPage()
       home: const WeatherPage(),
     );
   }

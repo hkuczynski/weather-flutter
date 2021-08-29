@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/data/models/address_suggestion.dart';
-import 'package:weather/data/models/city.dart';
-import 'package:weather/data/models/coordinates.dart';
 import 'package:weather/data/models/weather.dart';
 import 'package:weather/data/repositories/weather_repository.dart';
 import 'package:weather/ui/address_selection/address_selection_page.dart';
