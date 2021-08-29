@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:weather/data/models/address_suggestion.dart';
-import 'package:weather/data/models/city.dart';
-import 'package:weather/data/models/coordinates.dart';
 import 'package:weather/data/models/weather.dart';
 import 'package:weather/data/repositories/weather_repository.dart';
 

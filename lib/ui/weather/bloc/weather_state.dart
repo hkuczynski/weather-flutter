@@ -1,6 +1,6 @@
 part of 'weather_bloc.dart';
 
-class WeatherState {
+class WeatherState extends Equatable {
   const WeatherState({
     required this.addressSuggestion,
     this.isLoading = false,
@@ -32,4 +32,7 @@ class WeatherState {
       weather: weather ?? this.weather,
     );
   }
+
+  @override
+  List<Object?> get props => [isLoading, hasError, addressSuggestion, weather];
 }

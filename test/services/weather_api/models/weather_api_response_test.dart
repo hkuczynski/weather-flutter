@@ -3,8 +3,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:weather/api/models/weather_api_response.dart';
-import 'package:weather/api/stubs/weather_api_response_json.dart';
+import 'package:weather/services/weather_api/models/weather_api_response.dart';
+import 'package:weather/services/weather_api/stubs/weather_api_response_json.dart';
 
 void main() {
   group('creating from JSON', () {

@@ -12,7 +12,7 @@ class WeatherApiService {
 
   Future<WeatherApiResponse> getWeather({required String address}) async {
     final url = Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?q=$address&appid=$_apiKey');
+        'https://api.openweathermap.org/data/2.5/weather?q=$address&appid=$_apiKey&units=metric');
 
     try {
       final response = await _client.get(url);

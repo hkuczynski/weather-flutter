@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 import 'package:weather/data/models/address_suggestions.dart';
 import 'package:weather/data/repositories/places_repository.dart';
@@ -19,6 +20,15 @@ class AddressSelectionBloc
 
   final PlacesRepository _placesRepository;
   final String _sessionToken = const Uuid().v4();
+
+  @override
+  Stream<Transition<AddressSelectionEvent, AddressSelectionState>>
+      transformEvents(Stream<AddressSelectionEvent> events, transitionFn) {
+    return events
+        .distinct()
+        .debounceTime(const Duration(milliseconds: 300))
+        .switchMap((transitionFn));
+  }
 
   @override
   Stream<AddressSelectionState> mapEventToState(
