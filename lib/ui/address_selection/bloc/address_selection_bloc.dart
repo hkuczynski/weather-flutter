@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
 import 'package:weather/data/models/address_suggestions.dart';
 import 'package:weather/data/repositories/places_repository.dart';
 
@@ -17,6 +18,7 @@ class AddressSelectionBloc
         super(AddressSelectionState.initial());
 
   final PlacesRepository _placesRepository;
+  final String _sessionToken = const Uuid().v4();
 
   @override
   Stream<AddressSelectionState> mapEventToState(
@@ -31,11 +33,15 @@ class AddressSelectionBloc
     SearchTextChanged event,
     AddressSelectionState state,
   ) async* {
+    if (event.text.isEmpty) return;
+
     yield AddressSelectionState.loading();
 
     try {
       final suggestions = await _placesRepository.getAddressSuggestions(
         query: event.text,
+        language: event.languageCode,
+        sessionToken: _sessionToken,
       );
 
       yield AddressSelectionState.hasSuggestions(suggestions);

@@ -11,23 +11,23 @@ import 'package:weather/l10n/l10n.dart';
 import 'package:weather/ui/address_selection/address_selection_page.dart';
 import 'package:weather/ui/weather/weather_page.dart';
 
-class App extends StatelessWidget { 
+class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        accentColor: const Color(0xFF13B9FF),
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-      ),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const AddressSelectionPage(),
-      // home: const WeatherPage(),
-    );
+        theme: ThemeData(
+          accentColor: const Color(0xFF13B9FF),
+          appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+        ),
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: const AddressSelectionPage()
+        // home: const WeatherPage(),
+        );
   }
 }

@@ -9,6 +9,8 @@ class FakeGoogleMapsApiService implements GoogleMapsApiService {
   @override
   Future<AddressSuggestionsApiResponse> getAddressSuggestions({
     required String query,
+    required String language,
+    required String sessionToken,
   }) {
     final json = jsonDecode(addressSuggestionApiResponseJson);
     final response = AddressSuggestionsApiResponse.fromJson(json);

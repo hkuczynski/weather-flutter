@@ -43,7 +43,7 @@ class DevelopmentDependencyProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const placesRepository = PlacesRepository(
+    final placesRepository = PlacesRepository(
       apiService: GoogleMapsApiService(apiKey: kGoogleAPIKey),
     );
     final weatherRepository = WeatherRepository(

@@ -7,10 +7,14 @@ abstract class AddressSelectionEvent extends Equatable {
 
 @immutable
 class SearchTextChanged extends AddressSelectionEvent {
-  const SearchTextChanged({required this.text});
+  const SearchTextChanged({
+    required this.languageCode,
+    required this.text,
+  });
 
+  final String languageCode;
   final String text;
 
   @override
-  List<Object?> get props => [text];
+  List<Object?> get props => [languageCode, text];
 }

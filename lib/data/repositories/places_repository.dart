@@ -11,8 +11,14 @@ class PlacesRepository {
 
   Future<AddressSuggestions> getAddressSuggestions({
     required String query,
+    required String language,
+    required String sessionToken,
   }) async {
-    final response = await _apiService.getAddressSuggestions(query: query);
+    final response = await _apiService.getAddressSuggestions(
+      query: query,
+      language: language,
+      sessionToken: sessionToken,
+    );
     final addressSuggestions = response.toDomain();
 
     return addressSuggestions;

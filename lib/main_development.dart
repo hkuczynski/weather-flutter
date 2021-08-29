@@ -22,8 +22,7 @@ void main() {
   };
 
   runZonedGuarded(
-    // TODO: Replace TestDependencyProvider with the proper one
-    () => runApp(const TestDependencyProvider(child: App())),
+    () => runApp(const DevelopmentDependencyProvider(child: App())),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }

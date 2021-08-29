@@ -72,7 +72,10 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final event = SearchTextChanged(text: query);
+    final event = SearchTextChanged(
+      languageCode: Localizations.localeOf(context).languageCode,
+      text: query,
+    );
     addressSelectionBloc.add(event);
 
     return BlocBuilder(
@@ -96,6 +99,7 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
               title: Text(suggestion.description),
               onTap: () {
                 close(context, suggestion);
+                Navigator.of(context).pop(suggestion);
               },
             );
           },
@@ -106,7 +110,10 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final event = SearchTextChanged(text: query);
+    final event = SearchTextChanged(
+      languageCode: Localizations.localeOf(context).languageCode,
+      text: query,
+    );
     addressSelectionBloc.add(event);
 
     return BlocBuilder(
@@ -130,6 +137,7 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
               title: Text(suggestion.description),
               onTap: () {
                 close(context, suggestion);
+                Navigator.of(context).pop(suggestion);
               },
             );
           },

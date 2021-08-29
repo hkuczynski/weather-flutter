@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/data/models/weather.dart';
 import 'package:weather/data/repositories/weather_repository.dart';
+import 'package:weather/ui/address_selection/address_selection_page.dart';
 import 'package:weather/ui/weather/bloc/weather_bloc.dart';
 import 'package:weather/ui/weather/widgets/forecasts.dart';
 import 'package:weather/ui/weather/widgets/todays_weather.dart';
@@ -26,6 +27,20 @@ class WeatherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          TextButton(
+            onPressed: () async {
+              final route = MaterialPageRoute(
+                builder: (context) => const AddressSelectionPage(),
+              );
+              final addressSelection = await Navigator.of(context).push(route);
+              print("New address selected: $addressSelection");
+            },
+            child: const Text('Change address'),
+          ),
+        ],
+      ),
       body: BlocBuilder<WeatherBloc, WeatherState>(
         builder: (context, state) {
           if (state.isLoading) {
