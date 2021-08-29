@@ -6,3 +6,4 @@
 
 /// Your Google API key
 const String kGoogleAPIKey = 'google api key';
+const String kOpenWeatherMapAPIKey = 'open weather api key';

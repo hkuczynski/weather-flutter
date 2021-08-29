@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:weather/data/models/address_suggestion.dart';
+import 'package:weather/data/models/city.dart';
+import 'package:weather/data/models/coordinates.dart';
 import 'package:weather/data/models/weather.dart';
 import 'package:weather/data/repositories/weather_repository.dart';
 
@@ -11,18 +15,20 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc({
     required WeatherRepository weatherRepository,
   })  : _weatherRepository = weatherRepository,
-        super(const WeatherState());
+        super(WeatherState.london());
 
   final WeatherRepository _weatherRepository;
 
   @override
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
-    if (event is WeatherViewLoaded) {
-      yield* _mapWeatherViewLoadedEvent(event, state);
+    if (event is LoadDataEvent) {
+      yield* _mapLoadDataEvent(event, state);
+    } else if (event is ChangeAddressEvent) {
+      yield* _mapChangeAddressEvent(event, state);
     }
   }
 
-  Stream<WeatherState> _mapWeatherViewLoadedEvent(
+  Stream<WeatherState> _mapLoadDataEvent(
     WeatherEvent event,
     WeatherState state,
   ) async* {
@@ -32,7 +38,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     );
 
     try {
-      final weather = await _weatherRepository.getWeather();
+      final weather = await _weatherRepository.getWeather(
+        address: state.addressSuggestion.name,
+      );
 
       yield state.copyWith(
         isLoading: false,
@@ -45,5 +53,14 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         hasError: true,
       );
     }
+  }
+
+  Stream<WeatherState> _mapChangeAddressEvent(
+    ChangeAddressEvent event,
+    WeatherState state,
+  ) async* {
+    yield WeatherState(addressSuggestion: event.addressSuggestion);
+
+    add(const LoadDataEvent());
   }
 }

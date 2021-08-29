@@ -47,7 +47,7 @@ class DevelopmentDependencyProvider extends StatelessWidget {
       apiService: GoogleMapsApiService(apiKey: kGoogleAPIKey),
     );
     final weatherRepository = WeatherRepository(
-      apiService: WeatherApiService(),
+      apiService: WeatherApiService(apiKey: kOpenWeatherMapAPIKey),
     );
 
     return DependencyProvider(

@@ -6,7 +6,7 @@ import 'weather_api_service.dart';
 
 class FakeWeatherApiService implements WeatherApiService {
   @override
-  Future<WeatherApiResponse> getWeather() {
+  Future<WeatherApiResponse> getWeather({required String address}) {
     final json = jsonDecode(weatherApiResponseJson);
     final response = WeatherApiResponse.fromJson(json);
 

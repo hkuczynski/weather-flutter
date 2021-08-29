@@ -17,17 +17,17 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          accentColor: const Color(0xFF13B9FF),
-          appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        ),
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: const AddressSelectionPage()
-        // home: const WeatherPage(),
-        );
+      theme: ThemeData(
+        accentColor: const Color(0xFF13B9FF),
+        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+      ),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      // home: const AddressSelectionPage()
+      home: const WeatherPage(),
+    );
   }
 }

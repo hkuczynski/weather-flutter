@@ -10,8 +10,8 @@ class WeatherRepository {
 
   final WeatherApiService _apiService;
 
-  Future<Weather> getWeather() async {
-    final response = await _apiService.getWeather();
+  Future<Weather> getWeather({required String address}) async {
+    final response = await _apiService.getWeather(address: address);
     final weather = response.toDomain();
 
     return weather;
