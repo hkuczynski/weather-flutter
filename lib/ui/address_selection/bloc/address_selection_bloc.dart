@@ -15,11 +15,13 @@ class AddressSelectionBloc
     extends Bloc<AddressSelectionEvent, AddressSelectionState> {
   AddressSelectionBloc({
     required PlacesRepository placesRepository,
+    String? sessionToken,
   })  : _placesRepository = placesRepository,
+        _sessionToken = sessionToken ?? const Uuid().v4(),
         super(AddressSelectionState.initial());
 
   final PlacesRepository _placesRepository;
-  final String _sessionToken = const Uuid().v4();
+  final String _sessionToken;
 
   @override
   Stream<Transition<AddressSelectionEvent, AddressSelectionState>>

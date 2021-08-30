@@ -1,7 +1,7 @@
 part of 'address_selection_bloc.dart';
 
 @immutable
-class AddressSelectionState {
+class AddressSelectionState extends Equatable {
   const AddressSelectionState({
     required this.hasError,
     required this.isLoading,
@@ -55,4 +55,7 @@ class AddressSelectionState {
       suggestions: suggestions ?? this.suggestions,
     );
   }
+
+  @override
+  List<Object?> get props => [hasError, isLoading, suggestions];
 }
