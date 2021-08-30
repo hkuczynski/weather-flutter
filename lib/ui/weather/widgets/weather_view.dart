@@ -2,44 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/data/models/address_suggestion.dart';
 import 'package:weather/ui/address_selection/address_selection_page.dart';
-import 'package:weather/ui/constants.dart';
 
 import '../bloc/weather_bloc.dart';
 import 'error_view.dart';
 import 'loading_view.dart';
-import 'todays_weather.dart';
+import 'todays_weather_view.dart';
 
 class WeatherView extends StatelessWidget {
   const WeatherView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        scaffoldBackgroundColor: UIColors.purple,
-        accentColor: UIColors.white,
-      ),
-      child: _buildScaffold(context),
-    );
-  }
-
-  Widget _buildScaffold(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
         leading: IconButton(
+          key: const Key('weatherPage_weatherView_reloadButton'),
           onPressed: () =>
               BlocProvider.of<WeatherBloc>(context).add(const LoadDataEvent()),
           icon: const Icon(Icons.refresh),
         ),
         actions: [
           IconButton(
+            key: const Key('weatherPage_weatherView_addressSelectionButton'),
             onPressed: () => _changeLocationPressed(context),
             icon: const Icon(Icons.location_pin),
           )
         ],
-        elevation: 0,
-        backgroundColor: Colors.transparent,
       ),
       body: BlocBuilder<WeatherBloc, WeatherState>(
         builder: (context, state) {
@@ -53,7 +41,7 @@ class WeatherView extends StatelessWidget {
             return const ErrorView();
           }
 
-          return TodaysWeather(weather: weather);
+          return TodaysWeatherView(weather: weather);
         },
       ),
     );

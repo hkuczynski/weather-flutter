@@ -4,8 +4,8 @@ import 'package:weather/services/weather_api/models/weather_api_response.dart';
 import 'package:weather/data/models/weather.dart';
 import 'package:weather/ui/constants.dart';
 
-class TodaysWeather extends StatelessWidget {
-  const TodaysWeather({
+class TodaysWeatherView extends StatelessWidget {
+  const TodaysWeatherView({
     Key? key,
     required this.weather,
   }) : super(key: key);
@@ -36,7 +36,7 @@ class TodaysWeather extends StatelessWidget {
     return Text(
       weather.city.name,
       textAlign: TextAlign.center,
-      style: theme.textTheme.headline2?.copyWith(color: UIColors.white),
+      style: theme.textTheme.headline2,
     );
   }
 
@@ -49,7 +49,7 @@ class TodaysWeather extends StatelessWidget {
     return Text(
       description,
       textAlign: TextAlign.center,
-      style: theme.textTheme.headline6?.copyWith(color: UIColors.white),
+      style: theme.textTheme.headline6,
     );
   }
 
@@ -69,11 +69,11 @@ class TodaysWeather extends StatelessWidget {
           ),
           TextSpan(
             text: text,
-            style: theme.textTheme.headline1?.copyWith(color: UIColors.white),
+            style: theme.textTheme.headline1,
           ),
           TextSpan(
             text: degree,
-            style: theme.textTheme.headline1?.copyWith(color: UIColors.white),
+            style: theme.textTheme.headline1,
           ),
         ],
       ),

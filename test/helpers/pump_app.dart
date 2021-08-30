@@ -14,16 +14,24 @@ import 'package:mocktail/mocktail.dart';
 import 'package:weather/data/repositories/places_repository.dart';
 import 'package:weather/data/repositories/weather_repository.dart';
 import 'package:weather/l10n/l10n.dart';
+import 'package:weather/ui/address_selection/bloc/address_selection_bloc.dart';
+import 'package:weather/ui/weather/bloc/weather_bloc.dart';
 
 class MockPlacesRepository extends Mock implements PlacesRepository {}
 
 class MockWeatherRepository extends Mock implements WeatherRepository {}
+
+class MockWeatherBloc extends Mock implements WeatherBloc {}
+
+class MockAddressSelectionBloc extends Mock implements AddressSelectionBloc {}
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
     WeatherRepository? weatherRepository,
     PlacesRepository? placesRepository,
+    WeatherBloc? weatherBloc,
+    AddressSelectionBloc? addressSelectionBloc,
   }) {
     return pumpWidget(
       MultiRepositoryProvider(
@@ -35,13 +43,21 @@ extension PumpApp on WidgetTester {
             value: weatherRepository ?? MockWeatherRepository(),
           ),
         ],
-        child: MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: weatherBloc ?? MockWeatherBloc()),
+            BlocProvider.value(
+              value: addressSelectionBloc ?? MockAddressSelectionBloc(),
+            ),
           ],
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: widget,
+          child: MaterialApp(
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: widget,
+          ),
         ),
       ),
     );
