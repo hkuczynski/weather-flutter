@@ -50,13 +50,7 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        tooltip: 'Clear',
-        icon: const Icon(Icons.clear),
-        onPressed: () {},
-      )
-    ];
+    return [];
   }
 
   @override

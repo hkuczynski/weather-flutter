@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:weather/l10n/l10n.dart';
+import 'package:weather/ui/constants.dart';
 import 'package:weather/ui/weather/weather_page.dart';
 
 class App extends StatelessWidget {
@@ -17,8 +18,13 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        accentColor: const Color(0xFF13B9FF),
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+        scaffoldBackgroundColor: UIColors.white,
+        accentColor: UIColors.purple,
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: UIColors.black),
+          elevation: 0,
+          color: Colors.transparent,
+        ),
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,

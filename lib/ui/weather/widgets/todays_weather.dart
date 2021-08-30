@@ -14,20 +14,17 @@ class TodaysWeather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: weather.state?.color,
-      child: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(UIConstants.padding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildCity(context),
-              _buildDecription(context),
-              const SizedBox(height: 20),
-              _buildTemperature(context),
-            ],
-          ),
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.all(UIConstants.padding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildCity(context),
+            _buildDecription(context),
+            const SizedBox(height: 20),
+            _buildTemperature(context),
+          ],
         ),
       ),
     );
@@ -39,7 +36,7 @@ class TodaysWeather extends StatelessWidget {
     return Text(
       weather.city.name,
       textAlign: TextAlign.center,
-      style: theme.textTheme.headline2?.copyWith(color: Colors.white),
+      style: theme.textTheme.headline2?.copyWith(color: UIColors.white),
     );
   }
 
@@ -52,7 +49,7 @@ class TodaysWeather extends StatelessWidget {
     return Text(
       description,
       textAlign: TextAlign.center,
-      style: theme.textTheme.headline6?.copyWith(color: Colors.white),
+      style: theme.textTheme.headline6?.copyWith(color: UIColors.white),
     );
   }
 
@@ -72,11 +69,11 @@ class TodaysWeather extends StatelessWidget {
           ),
           TextSpan(
             text: text,
-            style: theme.textTheme.headline1?.copyWith(color: Colors.white),
+            style: theme.textTheme.headline1?.copyWith(color: UIColors.white),
           ),
           TextSpan(
             text: degree,
-            style: theme.textTheme.headline1?.copyWith(color: Colors.white),
+            style: theme.textTheme.headline1?.copyWith(color: UIColors.white),
           ),
         ],
       ),
@@ -86,10 +83,6 @@ class TodaysWeather extends StatelessWidget {
 }
 
 extension WeatherDescriptionStateX on WeatherDescriptionState {
-  Color get color {
-    return const Color(0xFF1267FF);
-  }
-
   String get name {
     switch (this) {
       case WeatherDescriptionState.clear:
