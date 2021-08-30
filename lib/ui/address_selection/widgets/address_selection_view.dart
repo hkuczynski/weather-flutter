@@ -3,41 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/data/models/address_suggestion.dart';
 import 'package:weather/ui/address_selection/bloc/address_selection_bloc.dart';
 
-class AddressSelectionView extends StatefulWidget {
+class AddressSelectionView extends StatelessWidget {
   const AddressSelectionView({Key? key}) : super(key: key);
-
-  @override
-  _AddressSelectionViewState createState() => _AddressSelectionViewState();
-}
-
-class _AddressSelectionViewState extends State<AddressSelectionView> {
-  final _textEditingController = TextEditingController();
-
-  @override
-  void dispose() {
-    _textEditingController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          TextField(
-            controller: _textEditingController,
-            onTap: () {
-              showSearch(
-                context: context,
-                delegate: AddressSearchDelegate(
-                  addressSelectionBloc:
-                      BlocProvider.of<AddressSelectionBloc>(context),
-                ),
-              );
-            },
-          ),
-        ],
+      appBar: AppBar(
+        title: const Text('Address search'),
+      ),
+      body: Container(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showSearch(
+            context: context,
+            delegate: AddressSearchDelegate(
+              addressSelectionBloc:
+                  BlocProvider.of<AddressSelectionBloc>(context),
+            ),
+          );
+        },
+        child: const Icon(Icons.search),
       ),
     );
   }
@@ -56,51 +42,13 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      tooltip: 'Back',
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
+      icon: const BackButtonIcon(),
+      onPressed: () => close(context, null),
     );
   }
 
   @override
-  Widget buildResults(BuildContext context) {
-    final event = SearchTextChanged(
-      languageCode: Localizations.localeOf(context).languageCode,
-      text: query,
-    );
-    addressSelectionBloc.add(event);
-
-    return BlocBuilder(
-      bloc: addressSelectionBloc,
-      builder: (BuildContext context, AddressSelectionState state) {
-        if (state.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (state.hasError) {
-          return const Text('Error loading suggestions');
-        }
-
-        return ListView.builder(
-          itemCount: state.suggestions.addressSuggestions.length,
-          itemBuilder: (context, index) {
-            final suggestion = state.suggestions.addressSuggestions[index];
-
-            return ListTile(
-              title: Text(suggestion.description),
-              onTap: () {
-                close(context, suggestion);
-                Navigator.of(context).pop(suggestion);
-              },
-            );
-          },
-        );
-      },
-    );
-  }
+  Widget buildResults(BuildContext context) => buildSuggestions(context);
 
   @override
   Widget buildSuggestions(BuildContext context) {

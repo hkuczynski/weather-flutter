@@ -39,7 +39,6 @@ class WeatherView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
-        brightness: Brightness.dark,
         leading: IconButton(
           onPressed: () =>
               BlocProvider.of<WeatherBloc>(context).add(const LoadDataEvent()),
