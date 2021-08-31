@@ -10,6 +10,7 @@ import 'todays_weather_view.dart';
 
 class WeatherView extends StatelessWidget {
   const WeatherView({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +49,7 @@ class WeatherView extends StatelessWidget {
   }
 
   void _changeLocationPressed(BuildContext context) async {
-    final route = MaterialPageRoute(
-      builder: (context) => const AddressSelectionPage(),
-    );
+    final route = AddressSelectionPage.route;
     final addressSuggestion = await Navigator.of(context).push(route);
     if (addressSuggestion != null) {
       final event = ChangeAddressEvent(

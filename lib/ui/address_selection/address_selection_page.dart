@@ -7,6 +7,12 @@ import 'package:weather/ui/address_selection/widgets/address_selection_view.dart
 class AddressSelectionPage extends StatelessWidget {
   const AddressSelectionPage({Key? key}) : super(key: key);
 
+  static PageRoute get route {
+    return MaterialPageRoute(
+      builder: (context) => const AddressSelectionPage(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

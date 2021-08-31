@@ -8,6 +8,12 @@ import 'widgets/weather_view.dart';
 class WeatherPage extends StatelessWidget {
   const WeatherPage({Key? key}) : super(key: key);
 
+  static PageRoute get route {
+    return MaterialPageRoute(
+      builder: (context) => const WeatherPage(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
