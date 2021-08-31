@@ -22,7 +22,7 @@ void main() {
   };
 
   runZonedGuarded(
-    () => runApp(const DevelopmentDependencyProvider(child: App())),
+    () => runApp(const OfflineDependencyProvider(child: App())),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }

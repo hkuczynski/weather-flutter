@@ -17,11 +17,11 @@
       ]
     },
     {
-      "name": "Launch staging",
+      "name": "Launch offline",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main_staging.dart",
-      "args": ["--flavor", "staging", "--target", "lib/main_staging.dart"]
+      "program": "lib/main_offline.dart",
+      "args": ["--flavor", "offline", "--target", "lib/main_offline.dart"]
     },
     {
       "name": "Launch production",
