@@ -10,7 +10,6 @@ import 'todays_weather_view.dart';
 
 class WeatherView extends StatelessWidget {
   const WeatherView({Key? key}) : super(key: key);
-  
 
   @override
   Widget build(BuildContext context) {

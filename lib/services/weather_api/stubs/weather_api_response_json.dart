@@ -34,7 +34,7 @@ const String weatherApiResponseJson = '''
     "id": 2643743,
     "main": {
         "humidity": 81,
-        "temp": 280.32,
+        "temp": 23.32,
         "temp_max": 281.15,
         "pressure": 1012,
         "temp_min": 279.15
