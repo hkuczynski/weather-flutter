@@ -8,8 +8,8 @@ import 'package:weather/services/google_maps/google_maps_api_service.dart';
 import 'package:weather/services/weather_api/fake_weather_api_service.dart';
 import 'package:weather/services/weather_api/weather_api_service.dart';
 
-class TestDependencyProvider extends StatelessWidget {
-  const TestDependencyProvider({
+class OfflineDependencyProvider extends StatelessWidget {
+  const OfflineDependencyProvider({
     Key? key,
     required this.child,
   }) : super(key: key);
