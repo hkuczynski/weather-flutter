@@ -3,17 +3,17 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:weather/services/weather_api/models/weather_api_response.dart';
-import 'package:weather/services/weather_api/stubs/weather_api_response_json.dart';
+import 'package:weather/services/google_maps/models/address_suggestions_api_response.dart';
+import 'package:weather/services/google_maps/stubs/address_suggestion_api_response_json.dart';
 
 void main() {
-  group('WeatherApiResponse', () {
+  group('AddressSuggestionsApiResponse', () {
     group('fromJson', () {
       test('works fine with the correct JSON', () {
-        final json = jsonDecode(weatherApiResponseJson);
+        final json = jsonDecode(addressSuggestionApiResponseJson);
         expect(
-          WeatherApiResponse.fromJson(json),
-          isInstanceOf<WeatherApiResponse>(),
+          AddressSuggestionsApiResponse.fromJson(json),
+          isInstanceOf<AddressSuggestionsApiResponse>(),
         );
       });
 
@@ -23,7 +23,7 @@ void main() {
           'bbb': 'test',
         };
         expect(
-          () => WeatherApiResponse.fromJson(json),
+          () => AddressSuggestionsApiResponse.fromJson(json),
           throwsA(anything),
         );
       });
