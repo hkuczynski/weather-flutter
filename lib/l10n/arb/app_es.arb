@@ -1,7 +1,17 @@
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
+    "addressSelectionAppBarTitle": "Búsqueda de dirección",
+    "@addressSelectionAppBarTitle": {
+        "description": "Text shown in the AppBar of the AddressSelection Page"
+    },
+    "@@locale": "es",
+    "addressSelectionLoadingErrorText": "Error al cargar las sugerencias",
+    "@addressSelectionLoadingErrorText": {
+        "description": "Text shown if an error occurs when loading suggestions in AddressSelection Page"
+    },
+    "@@locale": "es",
+    "weatherLoadingErrorText": "El tiempo no está disponible actualmente",
+    "@weatherLoadingErrorText": {
+        "description": "Text shown if an error occurs when loading data in Weather Page"
     }
 }

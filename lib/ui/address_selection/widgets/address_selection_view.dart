@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/data/models/address_suggestion.dart';
+import 'package:weather/l10n/l10n.dart';
 import 'package:weather/ui/address_selection/bloc/address_selection_bloc.dart';
 
 class AddressSelectionView extends StatelessWidget {
@@ -10,7 +11,7 @@ class AddressSelectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Address search'),
+        title: Text(context.l10n.addressSelectionAppBarTitle),
       ),
       body: Container(),
       floatingActionButton: FloatingActionButton(
@@ -67,7 +68,7 @@ class AddressSearchDelegate extends SearchDelegate<AddressSuggestion?> {
           );
         }
         if (state.hasError) {
-          return const Text('Error loading suggestions');
+          return Text(context.l10n.addressSelectionLoadingErrorText);
         }
 
         return ListView.builder(

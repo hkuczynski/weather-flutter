@@ -1,7 +1,17 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "addressSelectionAppBarTitle": "Address search",
+    "@addressSelectionAppBarTitle": {
+        "description": "Text shown in the AppBar of the AddressSelection Page"
+    },
+    "@@locale": "en",
+    "addressSelectionLoadingErrorText": "Error loading suggestions",
+    "@addressSelectionLoadingErrorText": {
+        "description": "Text shown if an error occurs when loading suggestions in AddressSelection Page"
+    },
+    "@@locale": "en",
+    "weatherLoadingErrorText": "Weather is currently not available",
+    "@weatherLoadingErrorText": {
+        "description": "Text shown if an error occurs when loading data in Weather Page"
     }
 }
